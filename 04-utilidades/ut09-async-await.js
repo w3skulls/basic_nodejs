@@ -2,12 +2,10 @@
 
 /**
 * ASYNC & AWAIT
-* Parte de ECMA7
-* 
 */
 
 
-//Con pone la palabra async, estamos creando una nueva Promise;
+//Con poner la palabra async, estamos creando una nueva Promise;
 let getNombreAsync = async() => { 
 	//undefined.nombre; //entra en el catch directamente;
 
