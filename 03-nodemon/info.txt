@@ -1,0 +1,6 @@
+Instalamos nodemon
+https://nodemon.io/
+
+npm install -g nodemon
+
+NODEMON es una herramienta que ayuda a desarrollar aplicaciones basadas en node.js al reiniciar automáticamente la aplicación del nodo cuando se detectan cambios de archivos en el directorio.
