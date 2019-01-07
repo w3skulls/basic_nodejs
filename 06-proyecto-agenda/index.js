@@ -1,27 +1,20 @@
-const { argv } = require('./config/yargs');
-const colors = require('colors');
-const scolors = require('colors/safe');
+const argv = require('./config/yargs').argv;
+const ACTIONS = require('./app/actions').ACTIONS;
 
-console.log(argv);
+let comando  = argv._[0];
 
-let comando = argv._[0];
-
-switch (comando){
-    case 'list': 
-        console.log(colors.bgWhite.black(`Comando: ${comando}`));
-        break;
+switch ( comando ){
     case 'create': 
-        console.log(colors.bgGreen.white(`Comando: ${comando}`));
+        ACTIONS.create(argv.description);
         break;
-    case 'update': 
-        console.log(colors.bgYellow.black(`Comando: ${comando}`));
+    case 'list':
+        ACTIONS.list();
+        break;
+    case 'update':
+        ACTIONS.update(argv.find, argv.hecho);
         break;
     case 'delete':
-        console.log(colors.bgRed.black(`Comando: ${comando}`));
+        ACTIONS.delete(argv.find);
         break;
-    default:
-        console.log(colors.bgYellow.black(`No se ha encontrado el comando: ${comando}`));
-        break;
-
-
+    default: console.log( 'No se reconoce el comando.' ); break;
 }
