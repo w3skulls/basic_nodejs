@@ -15,10 +15,10 @@ let getWeather = (localizacion) => {
                     //console.log(result);
                     console.log ({
                         descripcion :       result.data.weather[0].description,
-                        temperatura:        UTILS.kelvin2C( result.data.main.temp ) + 'C',
-                        temperatura_min:    UTILS.kelvin2C( result.data.main.temp_min ) + 'C',
-                        temperatura_max:    UTILS.kelvin2C( result.data.main.temp_max ) + 'C',
-                        viento:             UTILS.miles2km(result.data.wind.speed) + 'km/h',
+                        temperatura:        result.data.main.temp + 'C',
+                        temperatura_min:    result.data.main.temp_min + 'C',
+                        temperatura_max:    result.data.main.temp_max + 'C',
+                        viento:             result.data.wind.speed + 'km/h',
                         amanece:            UTILS.ms2Date(result.data.sys.sunrise),
                         anochece:           UTILS.ms2Date(result.data.sys.sunset)
                     });
@@ -34,7 +34,7 @@ let getWeather = (localizacion) => {
  */
 let getWeatherData =  async (params) => {
     let encodedDirection = encodeURI(params.address);
-    let url = 'http://api.openweathermap.org/data/2.5/weather?lat='+params.lat+'&lon='+params.lng+'&appid='+WEATHERAPIKEY;
+    let url = 'http://api.openweathermap.org/data/2.5/weather?lat='+params.lat+'&lon='+params.lng+'&units=metric&appid='+WEATHERAPIKEY;
     let response = await axios.get(url);
 
     if(response.data.cod == 400){
