@@ -1,6 +1,8 @@
 'use strict';
 
-const {getWeather} = require('./app/functions');
+const {getInfo} = require('./app/functions');
+const colors = require('colors');
+
 const argv = require('yargs')
     .options({
         direction: {
@@ -16,7 +18,12 @@ const argv = require('yargs')
 * Recoge: lng, lat y dirección;
 */
 let direccion = argv.direction;
-getWeather(direccion);
+
+getInfo(direccion)
+    .then(result => {
+        console.log(colors.green(result));
+    } )
+    .catch(err => console.log( colors.red('Ha ocurrido un error en el getWeather') ));
 
 
   

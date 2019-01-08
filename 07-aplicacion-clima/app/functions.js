@@ -1,47 +1,47 @@
 const axios = require('axios');
 const colors = require('colors');
 const {UTILS} = require('./utils');
-const WEATHERAPIKEY = 'TU API KEY';
-const GOOGLEAPIKEY = 'TU API KEY';
+const WEATHERAPIKEY = 'YOUR API KEY';
+const GOOGLEAPIKEY = 'YOUR API KEY';
 
 /**
- * Envía los datos del tiempo al usuario;
+ * Recoge la información del tiempo a través de la API OPENWEATHERMAP
+ * a partir de las coordenadas (latitud y longitud) de una determinada 
+ * localización que introduce el usuario.
+ * La longitud y latitud las recogemos a partir de la API de Google para
+ * la geolocalización.
  */
-let getWeather = (localizacion) => {
-    let res = getCoord(localizacion)
-        .then( response => {
-            getWeatherData(response)
-                .then( result => {
-                    //console.log(result);
-                    console.log ({
-                        descripcion :       result.data.weather[0].description,
-                        temperatura:        result.data.main.temp + 'C',
-                        temperatura_min:    result.data.main.temp_min + 'C',
-                        temperatura_max:    result.data.main.temp_max + 'C',
-                        viento:             result.data.wind.speed + 'km/h',
-                        amanece:            UTILS.ms2Date(result.data.sys.sunrise),
-                        anochece:           UTILS.ms2Date(result.data.sys.sunset)
-                    });
-                })
-                .catch(err => console.log( colors.red(err) ));
-        })
-        .catch( err => console.log(colors.red( err )) );
-}
+let getInfo = async (localizacion) => {
+    
+    let coors = await getCoord(localizacion);
+    let info = await getWeather(coors);
 
+    return {
+        localizacion:       info.name,
+        pais:               info.sys.country,
+        puestaSol:          UTILS.ms2Date(info.sys.sunset),
+        amanecer:           UTILS.ms2Date(info.sys.sunrise),
+        tiempo_general:     info.weather[0].description,
+        temperatura:        info.main.temp + 'ºC',
+        presion:            info.main.pressure + 'Pa',
+        minimas:            info.main.temp_min + 'ºC',
+        maximas:            info.main.temp_max + 'ºC',
+        viento:             info.wind.speed + 'km/h',
+        viento_grad:        info.wind.deg + 'º'
+    }
+}
 
 /**
  * Recoge los datos de la API https://home.openweathermap.org/
  */
-let getWeatherData =  async (params) => {
-    let encodedDirection = encodeURI(params.address);
+let getWeather =  async (params) => {
     let url = 'http://api.openweathermap.org/data/2.5/weather?lat='+params.lat+'&lon='+params.lng+'&units=metric&appid='+WEATHERAPIKEY;
     let response = await axios.get(url);
 
     if(response.data.cod == 400){
         throw new Error(colors.bgRed.white(`Code 400`));
     }
-
-    return response;
+    return response.data;
 }
 
 /**
@@ -73,5 +73,5 @@ let getCoord = async (localizacion) => {
 }
 
 module.exports = {
-    getWeather
+    getInfo
 }
