@@ -1,14 +1,54 @@
 const axios = require('axios');
 const colors = require('colors');
+const {UTILS} = require('./utils');
+const WEATHERAPIKEY = 'TU API KEY';
+const GOOGLEAPIKEY = 'TU API KEY';
 
-let getWeather = (direccion) => {
-    let res = getCoord(direccion)
-        .then( response => console.log(response) )
-        .catch( err => console.log(colors.red( err )) )
+/**
+ * Envía los datos del tiempo al usuario;
+ */
+let getWeather = (localizacion) => {
+    let res = getCoord(localizacion)
+        .then( response => {
+            getWeatherData(response)
+                .then( result => {
+                    //console.log(result);
+                    console.log ({
+                        descripcion :       result.data.weather[0].description,
+                        temperatura:        UTILS.kelvin2C( result.data.main.temp ) + 'C',
+                        temperatura_min:    UTILS.kelvin2C( result.data.main.temp_min ) + 'C',
+                        temperatura_max:    UTILS.kelvin2C( result.data.main.temp_max ) + 'C',
+                        viento:             UTILS.miles2km(result.data.wind.speed) + 'km/h',
+                        amanece:            UTILS.ms2Date(result.data.sys.sunrise),
+                        anochece:           UTILS.ms2Date(result.data.sys.sunset)
+                    });
+                })
+                .catch(err => console.log( colors.red(err) ));
+        })
+        .catch( err => console.log(colors.red( err )) );
 }
 
-let getCoord = async (direccion) => {
-    let encodedURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURI(direccion)+'&key=AIzaSyAu2rb0mobiznVJnJd6bVb5Bn2WsuXP2QI';
+
+/**
+ * Recoge los datos de la API https://home.openweathermap.org/
+ */
+let getWeatherData =  async (params) => {
+    let encodedDirection = encodeURI(params.address);
+    let url = 'http://api.openweathermap.org/data/2.5/weather?lat='+params.lat+'&lon='+params.lng+'&appid='+WEATHERAPIKEY;
+    let response = await axios.get(url);
+
+    if(response.data.cod == 400){
+        throw new Error(colors.bgRed.white(`Code 400`));
+    }
+
+    return response;
+}
+
+/**
+ * Recoge los datos longitud, latitud y dirección de la localización que pasamos por parámetro.
+ */
+let getCoord = async (localizacion) => {
+    let encodedURL = 'https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURI(localizacion)+'&key='+GOOGLEAPIKEY;
     /**
     * Utilizamos async y await.
     * Espero a que la petición AXIOS regrese. 
