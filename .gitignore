@@ -2,3 +2,4 @@
 05-bases-de-node/tablas/*.*
 06-proyecto-agenda/node_modules/
 07-aplicacion-clima/node_modules/
+07-aplicacion-clima/app/apikeys.js
