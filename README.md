@@ -31,3 +31,9 @@ Uso de la herramienta NODEMON.
 03 - Importar archivos.
 04 - Parámetros en la terminal.
 05 - Yargs para el uso de comandos en la terminal.
+
+## PROYECTO AGENDA
+CRUD de tareas.
+
+## APLICACIÓN CLIMA
+Google Geocode y OpenWeather APIS.
