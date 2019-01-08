@@ -12,11 +12,11 @@ const argv = require('yargs')
     .help()
     .argv;
 
-
 /**
 * Recoge: lng, lat y dirección;
 */
-getWeather(argv);
+let direccion = argv.direction;
+getWeather(direccion);
 
 
   
