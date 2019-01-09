@@ -1,0 +1,16 @@
+{
+  "name": "03-contenido-estatico",
+  "version": "1.0.0",
+  "description": "Página web con contenido estático",
+  "main": "index.js",
+  "dependencies": {
+    "colors": "^1.3.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Héctor Ochoa",
+  "license": "ISC"
+}

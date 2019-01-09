@@ -4,14 +4,10 @@
  * HTTP
  * Es un paquete que nos permite crear de forma rápida un --webserver, es decir, un servidor para desplegar nuestra aplicación.
  */
- 
-
  const colors = require('colors');
  //Paso 1: Declaramos una variable http
  const http = require('http');
  const puerto = 8080;
-
-//console.log(colors.yellow(http.createServer.toString()));
 
 /**
  * CREAR EL SERVER
