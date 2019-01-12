@@ -11,6 +11,7 @@ app.use( express.static(__dirname + '/public' ) );
 //Express HBS engine
 app.set('view engine', 'hbs');
 
+
 //HOME
 app.get('/', (request, response) => {
     response.render('home', {
@@ -29,7 +30,6 @@ app.get('/contacto', (request, response) => {
         anio: new Date().getFullYear()
     });
 });
-
 
 //ARRANCAR APLICACIÓN
 app.listen( puerto, () => {
