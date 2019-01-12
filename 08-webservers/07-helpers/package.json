@@ -1,0 +1,15 @@
+{
+  "name": "07-helpers",
+  "version": "1.0.0",
+  "description": "Los helpers son funciones que entran en juego cuando el template lo requiere",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Héctor Ochoa",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "hbs": "^4.0.1"
+  }
+}
