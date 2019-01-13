@@ -1,12 +1,18 @@
+/**
+ * HEROKU es un servicio en la nube que permite desplegar aplicaciones PHP, Ruby, NodeJS
+ */
+
 const express = require('express');
-const app = express();
 const hbs = require('hbs');
-const port = 8080;
-
-//Importamos los helpers;
-require('./helpers/helpers');
-
-//nodemon server -e js,hbs,html,css,img
+const app = express();
+/**
+ * CONFIGURACIÓN PUERTO HEROKU
+ * process  :: objeto global
+ * env      :: accede a las variables de entorno
+ * Necesitamos asociar el comando start en el package.json para que HEROKU despliegue la aplicación 
+ * "start": "npm run nodemon"
+ */
+const port = process.env.PORT || 8080;
 
 const VARS = {
     home_vars: {
@@ -27,25 +33,27 @@ const VARS = {
     }
 };
 
+require('./helpers/helpers.js');
+
+//ASOCIACIÓN DE ESTÁTICOS
+app.use( express.static( __dirname + '/public' ) );
+
+//ESTABLECER EL SISTEMA DE PLANTILLAS
+app.set('view engine', 'hbs');
+
 //REGISTRO DE PARCIALES
 hbs.registerPartials(__dirname + '/views/partials/', () => {
     console.log(`Usando plantilla`.green);
 });
 
-//ASOCIAR ESTÁTICOS
-app.use( express.static(__dirname+'/public') );
-
-//ESTABLECER EL SISTEMA DE PLANTILLAS
-app.set('view engine', 'hbs');
-
 //HOME
-app.get('/', (request, response) => {
-    response.render('index', {
+app.get('/', (req, res) => {
+    res.render('index', {
         //TODO :: variables para las vistas.
         vars: VARS.home_vars,
         links: VARS.links
     });
-} );
+});
 
 //ABOUT 
 app.get('/about', (request, response) => {
@@ -56,19 +64,6 @@ app.get('/about', (request, response) => {
      });
 })
 
-//ARRANCAR APLICACIÓN
-app.listen( port, () => {
-    console.log(`Aplicación corriendo por el puerto ${port}`);
-} );
-
-
-
-
-
-
-
-
-
-
-
+//LEVANTAR SERVIDOR
+app.listen(port, () => { console.log('Aplicación corriendo por el puerto ' +port); });
 
