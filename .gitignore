@@ -101,3 +101,5 @@
 08-webservers/08-subida-heroku/public/js/bootstrap.js
 08-webservers/08-subida-heroku/public/js/bootstrap.js.map
 08-webservers/08-subida-heroku/public/js/bootstrap.min.js.map
+09-restservers/01-peticiones-http-get-put-post-delete/node_modules
+09-restservers/02-codigos-respuesta-http/node_modules
