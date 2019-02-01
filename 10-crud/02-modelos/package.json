@@ -1,7 +1,7 @@
 {
-  "name": "01-conexion-mongoose",
+  "name": "02-modelos",
   "version": "1.0.0",
-  "description": "Conexión a base de datos con mongoose",
+  "description": "Creación de modelos con Node",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +9,10 @@
   "author": "Héctor Ochoa",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
     "colors": "^1.3.3",
     "express": "^4.16.4",
-    "mongoose": "^5.4.7"
+    "mongoose": "^5.4.7",
+    "mongoose-unique-validator": "^2.0.2",
+    "simple-encryptor": "^2.0.0"
   }
 }

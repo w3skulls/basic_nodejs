@@ -1,0 +1,16 @@
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => { 
+     res.json({
+         'id': 1,
+         'name': 'Karibe'
+     });
+ });
+
+
+ /**
+  * exportamos app que ahora contiene 
+  * las configuraciones para esas rutas;
+  */
+module.exports = app;

@@ -104,3 +104,4 @@
 09-restservers/01-peticiones-http-get-put-post-delete/node_modules
 09-restservers/02-codigos-respuesta-http/node_modules
 10-crud/01-conexion-mongoose/node_modules
+10-crud/02-modelos/node_modules
